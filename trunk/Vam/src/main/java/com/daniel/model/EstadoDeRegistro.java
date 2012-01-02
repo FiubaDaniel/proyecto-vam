@@ -4,8 +4,8 @@ import com.daniel.util.FechaUtil;
 
 public abstract class EstadoDeRegistro {
 	
-	private FechaUtil fechaDeRealizacion;
-	private IdEstado id;
+	protected FechaUtil fechaDeRealizacion;
+	protected IdEstado id;
 
 	public IdEstado getIdEstado() {
 		return id;

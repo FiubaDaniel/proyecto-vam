@@ -21,12 +21,6 @@ public class Registro {
 		MaquinaDeEstado.modificarEstado(this, id);
 	}
 	
-	public void modificarRegistro(EstadoDeRegistro nuevoEstado,MaquinaDeEstado maquinaDeEstado){
-		
-		
-		
-	}
-
 	public String getNombre() {
 		return nombre;
 	}

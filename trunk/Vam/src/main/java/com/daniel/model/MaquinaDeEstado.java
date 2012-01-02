@@ -16,20 +16,23 @@ public class MaquinaDeEstado {
 
 	}
 
-	public static void modificarEstado(Registro registro, IdEstado id) {
+	public static boolean modificarEstado(Registro registro, IdEstado id) {
 
 		if (registro.getEstados().size() >= 2) {
-			registro.setEstadoActual(tabla.get(IdEstado.TERMINAR));
+			modificarEstado(registro, id, false);
+			return true;
 		} else if (registro.getEstadoActual().getIdEstado().getAtributo()
 				.compareTo(IdEstado.TERMINAR.getAtributo()) != 0) {
 			if (id.getAtributo().compareTo(
 					IdEstado.FIRMARYRETIRAR.getAtributo()) == 0) {
 				registro.setEstadoActual(tabla.get(id));
+				return true;
 			} else if (id.getAtributo()
 					.compareTo(IdEstado.FIRMAR.getAtributo()) == 0
 					&& registro.getEstadoActual().getIdEstado().getAtributo()
 							.compareTo(IdEstado.FIRMARYRETIRAR.getAtributo()) == 0) {
 				registro.setEstadoActual(tabla.get(id));
+				return true;
 			} else if (id.getAtributo().compareTo(
 					IdEstado.RETIRAR.getAtributo()) == 0
 					&& (registro.getEstadoActual().getIdEstado().getAtributo()
@@ -37,19 +40,24 @@ public class MaquinaDeEstado {
 							.getEstadoActual().getIdEstado().getAtributo()
 							.compareTo(IdEstado.DEJAR.getAtributo()) == 0)) {
 				registro.setEstadoActual(tabla.get(id));
-			}else if (id.getAtributo().compareTo(
-					IdEstado.DEJAR.getAtributo()) == 0 || id.getAtributo().compareTo(
-							IdEstado.TERMINAR.getAtributo()) == 0
-					){
+				return true;
+			} else if (id.getAtributo().compareTo(IdEstado.DEJAR.getAtributo()) == 0) {
 				registro.setEstadoActual(tabla.get(id));
+				return true;
+			} else if (id.getAtributo().compareTo(
+					IdEstado.TERMINAR.getAtributo()) == 0) {
+				modificarEstado(registro, id, false);
+				return true;
 			}
-		}	
+		}
+		return false;
 	}
-	
-	public static void modificarEstado(Registro registro, IdEstado id,boolean finalizoOk){
-		
-		modificarEstado(registro,id);
-		Terminado estado = (Terminado)registro.getEstadoActual();
+
+	public static void modificarEstado(Registro registro, IdEstado id,
+			boolean finalizoOk) {
+
+		modificarEstado(registro, id);
+		Terminado estado = (Terminado) registro.getEstadoActual();
 		estado.setExito(finalizoOk);
 	}
 }
