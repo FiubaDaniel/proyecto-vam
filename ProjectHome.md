@@ -1,0 +1,1 @@
+Se manejaran los registro de clientes que haceden al pedido de tarjetas de credito, el envio, recepcion, recuperacion de informacion, documentacion y firma de y hacia los clientes.
